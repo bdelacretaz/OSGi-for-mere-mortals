@@ -21,6 +21,7 @@ public class StartServer {
         for(Bundle b : framework.getBundleContext().getBundles()) {
             log.info("Installed bundle: {} ({})", b.getSymbolicName(), b.getState());
         }
+        
         osgi.waitForFrameworkAndQuit();
     }
     
