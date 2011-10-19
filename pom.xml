@@ -39,6 +39,20 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${basedir}</directory>
+                            <includes>
+                                <include>felix-cache</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
