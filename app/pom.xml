@@ -14,11 +14,11 @@
     </parent>
 
     <groupId>ch.x42.osgi</groupId>
-    <artifactId>osgi-for-mere-mortals-core</artifactId>
+    <artifactId>osgi-for-mere-mortals-app</artifactId>
     <packaging>bundle</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>OSGi for mere mortals - Core</name>
+    <name>OSGi for mere mortals - Application Bundle</name>
     <inceptionYear>2011</inceptionYear>
 
     <prerequisites>
@@ -37,8 +37,7 @@
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>ch.x42.osgi.samples.osgi101.core</Export-Package>
-                        <Private-Package>ch.x42.osgi.samples.osgi101.core.*</Private-Package>
+                        <Private-Package>ch.x42.*</Private-Package>
                         <Export-Package>!*</Export-Package>
                     </instructions>
                 </configuration>
@@ -68,6 +67,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>ch.x42.osgi</groupId>
+            <artifactId>osgi-for-mere-mortals-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>

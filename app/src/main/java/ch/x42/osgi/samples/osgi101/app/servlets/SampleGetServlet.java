@@ -1,4 +1,4 @@
-package ch.x42.osgi.samples.osgi101.core;
+package ch.x42.osgi.samples.osgi101.app.servlets;
 
 import java.io.IOException;
 
@@ -12,14 +12,16 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Service;
 
+import ch.x42.osgi.samples.osgi101.core.CoreConstants;
+
 @SuppressWarnings("serial")
 @Component
 @Service(value=Servlet.class)
-@Property(name=DispatcherServlet.SERVLET_METHOD_PROP, value="POST")
-public class SamplePostServlet extends HttpServlet {
+@Property(name=CoreConstants.SERVLET_METHOD_PROP, value="GET")
+public class SampleGetServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest req, HttpServletResponse response) 
     throws ServletException, IOException {
         response.getWriter().println("This is " + getClass().getName());
         response.getWriter().flush();

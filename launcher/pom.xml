@@ -118,9 +118,15 @@
                                     <version>2.1.2</version>
                                 </artifactItem>
                                 <artifactItem>
-                                    <!-- TODO core should also be a dependency, for correct build order -->
+                                    <!-- TODO should also be a dependency, for correct build order -->
                                     <groupId>ch.x42.osgi</groupId>
                                     <artifactId>osgi-for-mere-mortals-core</artifactId>
+                                    <version>0.0.1-SNAPSHOT</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <!-- TODO should also be a dependency, for correct build order -->
+                                    <groupId>ch.x42.osgi</groupId>
+                                    <artifactId>osgi-for-mere-mortals-app</artifactId>
                                     <version>0.0.1-SNAPSHOT</version>
                                 </artifactItem>
                             </artifactItems>

@@ -1,4 +1,4 @@
-package ch.x42.osgi.samples.osgi101.core;
+package ch.x42.osgi.samples.osgi101.core.impl;
 
 import java.io.IOException;
 
@@ -21,6 +21,8 @@ import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.x42.osgi.samples.osgi101.core.CoreConstants;
+
 @SuppressWarnings("serial")
 @Component(immediate=true)
 public class DispatcherServlet extends HttpServlet {
@@ -37,9 +39,6 @@ public class DispatcherServlet extends HttpServlet {
      *  so that we can dispatch requests to them.
      */
     private ServiceTracker servletServicesTracker;
-    
-    public static final String SERVLET_METHOD_PROP = "osgi101.servlet.method";
-    public static final String SERVLET_PATH_PROP = "osgi101.servlet.path";
     
     private BundleContext bundleContext;
 
@@ -70,8 +69,8 @@ public class DispatcherServlet extends HttpServlet {
         final String path = req.getPathInfo();
         ServiceReference selectedService = null;
         for(ServiceReference  ref : servletServicesTracker.getServiceReferences()) {
-            final String serviceMethod = (String)ref.getProperty(SERVLET_METHOD_PROP);
-            final String servicePath = (String)ref.getProperty(SERVLET_PATH_PROP);
+            final String serviceMethod = (String)ref.getProperty(CoreConstants.SERVLET_METHOD_PROP);
+            final String servicePath = (String)ref.getProperty(CoreConstants.SERVLET_PATH_PROP);
             if(method.equals(serviceMethod) && (servicePath == null || servicePath.startsWith(path))) {
                 selectedService = ref;
             }
