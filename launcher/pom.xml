@@ -33,7 +33,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ch.x42.osgi.samples.osgi101.bootstrap.StartServer</mainClass>
+                            <mainClass>ch.x42.osgi.samples.osgi101.bootstrap.OsgiBootstrap</mainClass>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                     </archive>

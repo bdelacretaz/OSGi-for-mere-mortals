@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  *  tutorial.
  */
 class OsgiBootstrap {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private static final Logger log = LoggerFactory.getLogger(OsgiBootstrap.class);
     private final Framework framework;
     
     OsgiBootstrap() throws BundleException {
@@ -68,5 +68,18 @@ class OsgiBootstrap {
     
     Framework getFramework() {
         return framework;
+    }
+    
+    public static void main(String [] args) throws Exception {
+        final OsgiBootstrap osgi = new OsgiBootstrap();
+        final Framework framework = osgi.getFramework();
+        
+        log.info("Framework bundle: {} ({})", framework.getSymbolicName(), framework.getState());
+        osgi.installBundles(new File("target/bundles"));
+        for(Bundle b : framework.getBundleContext().getBundles()) {
+            log.info("Installed bundle: {} ({})", b.getSymbolicName(), b.getState());
+        }
+        
+        osgi.waitForFrameworkAndQuit();
     }
 }
