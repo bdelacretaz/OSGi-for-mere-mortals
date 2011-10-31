@@ -1,6 +1,8 @@
 package ch.x42.osgi.samples.osgi101.core.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -63,16 +65,27 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) 
     throws ServletException, IOException {
-        // Select a servlet to dispatch to, based on its service properties
+        // Select a servlet to dispatch to, based on its service properties and
+        // keeping the one that has the longest path match if there are several
         // TODO might implement some caching, not needed for this simple example
         final String method = req.getMethod();
         final String path = req.getPathInfo();
         ServiceReference selectedService = null;
         for(ServiceReference  ref : servletServicesTracker.getServiceReferences()) {
-            final String serviceMethod = (String)ref.getProperty(CoreConstants.SERVLET_METHOD_PROP);
+            final List<String> serviceMethods = getServiceMethods(ref);
             final String servicePath = (String)ref.getProperty(CoreConstants.SERVLET_PATH_PROP);
-            if(method.equals(serviceMethod) && (servicePath == null || servicePath.startsWith(path))) {
-                selectedService = ref;
+            if(serviceMethods.contains(method) && (servicePath == null || path.startsWith(servicePath))) {
+                if(selectedService == null) {
+                    selectedService = ref;
+                } else {
+                    final String currentServicePath = (String)selectedService.getProperty(CoreConstants.SERVLET_PATH_PROP);
+                    final int currentLength = (currentServicePath == null ? 0 : currentServicePath.length());
+                    final int newLength = (servicePath == null ? 0 : servicePath.length());
+                    if(newLength > currentLength) {
+                        log.debug("Overriding service {} with {} as former has a longer path", selectedService, ref);
+                        selectedService = ref;
+                    }
+                }
             }
         }
         
@@ -83,5 +96,21 @@ public class DispatcherServlet extends HttpServlet {
         final Servlet servlet = (Servlet)bundleContext.getService(selectedService);
         log.debug("Dispatching to {}", servlet);
         servlet.service(req, resp);
+    }
+    
+    private List<String> getServiceMethods(ServiceReference ref) {
+        final List<String> result = new ArrayList<String>();
+        final Object o = ref.getProperty(CoreConstants.SERVLET_METHOD_PROP);
+        if(o instanceof String) {
+            result.add((String)o);
+        } else if (o instanceof String[]) {
+            for(String str : (String[])o) {
+                result.add(str);
+            }
+        } else {
+            throw new IllegalStateException("Invalid type " + o.getClass().getName() 
+                    + " for " + CoreConstants.SERVLET_METHOD_PROP);
+        }
+        return result;
     }
 }

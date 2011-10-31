@@ -118,6 +118,11 @@
                                     <version>2.1.2</version>
                                 </artifactItem>
                                 <artifactItem>
+                                    <groupId>org.apache.felix</groupId>
+                                    <artifactId>org.apache.felix.metatype</artifactId>
+                                    <version>1.0.4</version>
+                                </artifactItem>                                
+                                <artifactItem>
                                     <!-- TODO should also be a dependency, for correct build order -->
                                     <groupId>ch.x42.osgi</groupId>
                                     <artifactId>osgi-for-mere-mortals-core</artifactId>

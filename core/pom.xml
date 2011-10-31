@@ -39,7 +39,6 @@
                         <Bundle-Version>${project.version}</Bundle-Version>
                         <Export-Package>ch.x42.osgi.samples.osgi101.core</Export-Package>
                         <Private-Package>ch.x42.osgi.samples.osgi101.core.*</Private-Package>
-                        <Export-Package>!*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
