@@ -24,6 +24,10 @@ import org.slf4j.LoggerFactory;
 import ch.x42.osgi.samples.osgi101.core.CoreConstants;
 import ch.x42.osgi.samples.osgi101.core.Storage;
 
+/** Servlet that implements GET and POST access
+ *  to our Storage component, mounted on /store
+ *  by default, path can be changed by configuration.
+ */
 @SuppressWarnings("serial")
 @Component(metatype=true)
 @Service(value=Servlet.class)
@@ -44,7 +48,8 @@ public class StorageServlet extends HttpServlet {
     
     protected void activate(ComponentContext ctx) {
         addMetadata = (Boolean)ctx.getProperties().get(ADD_METADATA_PROP);
-        log.info("Activated, addMetadata={}", addMetadata);
+        final String mountPath = (String)ctx.getProperties().get(CoreConstants.SERVLET_PATH_PROP);
+        log.info("Activated, path={}, addMetadata={}", mountPath, addMetadata);
     }
     
     @Override

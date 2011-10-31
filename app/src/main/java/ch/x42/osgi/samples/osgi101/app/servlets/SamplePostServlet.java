@@ -14,6 +14,10 @@ import org.apache.felix.scr.annotations.Service;
 
 import ch.x42.osgi.samples.osgi101.core.CoreConstants;
 
+/** Sample POST servlet mounted on /, will catch
+ *  requests for which there's no POST servlet
+ *  with a more specific path.  
+ */
 @SuppressWarnings("serial")
 @Component
 @Service(value=Servlet.class)
