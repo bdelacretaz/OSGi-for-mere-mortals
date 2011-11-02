@@ -31,7 +31,7 @@ public class DispatcherServlet extends HttpServlet {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
     
-    // TODO make this configurable
+    // Could be configurable...
     public static final String MOUNT_PATH = "/";
     
     @Reference
