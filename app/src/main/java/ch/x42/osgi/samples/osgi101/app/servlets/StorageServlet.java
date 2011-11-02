@@ -58,7 +58,8 @@ public class StorageServlet extends HttpServlet {
         final String path = getStoragePath(req);
         final Properties props = storage.get(path);
         if(props == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, path);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, 
+                    "Not found in store: " + path);
             return;
         }
         response.setContentType("text/plain");

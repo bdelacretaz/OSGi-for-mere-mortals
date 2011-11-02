@@ -1,4 +1,4 @@
-package ch.x42.osgi.samples.osgi101.app.servlets;
+package ch.x42.osgi.samples.osgi101.core.impl;
 
 import java.io.IOException;
 
@@ -14,20 +14,20 @@ import org.apache.felix.scr.annotations.Service;
 
 import ch.x42.osgi.samples.osgi101.core.CoreConstants;
 
-/** Sample POST servlet mounted on /, will catch
- *  requests for which there's no POST servlet
- *  with a more specific path.  
+/** Default POST servlet mounted without a path,
+ *  will catch requests for which there's 
+ *  no POST servlet with a specific path.  
  */
 @SuppressWarnings("serial")
 @Component
 @Service(value=Servlet.class)
 @Property(name=CoreConstants.SERVLET_METHOD_PROP, value="POST")
-public class SamplePostServlet extends HttpServlet {
+public class DefaultPostServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse response) 
     throws ServletException, IOException {
-        response.getWriter().println("This is " + getClass().getName());
-        response.getWriter().flush();
+        response.sendError(HttpServletResponse.SC_NOT_FOUND, 
+                "No specific POST servlet found to process this request");
     }
 }
