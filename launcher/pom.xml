@@ -123,16 +123,12 @@
                                     <version>1.0.4</version>
                                 </artifactItem>                                
                                 <artifactItem>
-                                    <!-- TODO should also be a dependency, for correct build order -->
                                     <groupId>ch.x42.osgi</groupId>
                                     <artifactId>osgi-for-mere-mortals-core</artifactId>
-                                    <version>0.0.1-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
-                                    <!-- TODO should also be a dependency, for correct build order -->
                                     <groupId>ch.x42.osgi</groupId>
                                     <artifactId>osgi-for-mere-mortals-app</artifactId>
-                                    <version>0.0.1-SNAPSHOT</version>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -149,6 +145,21 @@
             </plugin>
         </plugins>
     </build>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>ch.x42.osgi</groupId>
+                <artifactId>osgi-for-mere-mortals-core</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.x42.osgi</groupId>
+                <artifactId>osgi-for-mere-mortals-app</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -182,6 +193,16 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.x42.osgi</groupId>
+            <artifactId>osgi-for-mere-mortals-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.x42.osgi</groupId>
+            <artifactId>osgi-for-mere-mortals-app</artifactId>
+            <scope>provided</scope>
         </dependency>
      </dependencies>
 </project>

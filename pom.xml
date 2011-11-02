@@ -45,8 +45,8 @@
     </build>
 
     <modules>
+        <module>launcher</module>
         <module>app</module>
         <module>core</module>
-        <module>launcher</module>
     </modules>
 </project>

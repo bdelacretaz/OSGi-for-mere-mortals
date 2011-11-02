@@ -18,7 +18,7 @@
     <packaging>bundle</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>OSGi for mere mortals - Core</name>
+    <name>OSGi for mere mortals - Core Bundle</name>
     <inceptionYear>2011</inceptionYear>
 
     <prerequisites>
