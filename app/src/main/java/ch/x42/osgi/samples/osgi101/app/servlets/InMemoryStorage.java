@@ -23,13 +23,13 @@ public class InMemoryStorage implements Storage {
     @Override
     public Properties get(String key) {
         final Properties result = data.get(key);
-        log.info("Get ({}) returns {}", key, result);
+        log.info("Get {} {}", key, (result!=null ? "successful" : "found nothing"));
         return result;
     }
 
     @Override
     public void put(String key, Properties value) {
         data.put(key, value);
-        log.info("Stored with key={}: {}");
+        log.info("Sucessfuly stored {}", key);
     }
 }
