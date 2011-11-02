@@ -114,11 +114,13 @@ public class StorageServlet extends HttpServlet {
      */
     private void propertiesAsText(PrintWriter pw, Properties props) {
         final Enumeration<?> e = props.propertyNames();
+        boolean hasMetadata = false;
         while(e.hasMoreElements()) {
             final String key = e.nextElement().toString();
             if(key.equals(BODY)) {
                 continue;
             }
+            hasMetadata = true;
             pw.print(key);
             pw.print(':');
             pw.println(props.get(key));
@@ -126,7 +128,9 @@ public class StorageServlet extends HttpServlet {
         
         final Object body = props.get(BODY);
         if(body != null) {
-            pw.println();
+            if(hasMetadata) {
+                pw.println();
+            }
             pw.print(body);
         }
     }
