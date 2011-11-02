@@ -71,16 +71,19 @@
             <groupId>ch.x42.osgi</groupId>
             <artifactId>osgi-for-mere-mortals-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
             <version>4.2.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.compendium</artifactId>
             <version>4.2.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
@@ -98,6 +101,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.6.2</version>
+            <scope>provided</scope>
         </dependency>
      </dependencies>
 </project>
