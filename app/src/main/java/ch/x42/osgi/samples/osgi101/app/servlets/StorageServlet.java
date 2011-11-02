@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -38,6 +39,10 @@ import ch.x42.osgi.samples.osgi101.core.Storage;
 public class StorageServlet extends HttpServlet {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
+    private final AtomicInteger pathCounter = new AtomicInteger();
+    
+    /** Property name for request body, that we handle in a special way */
+    public static final String BODY = "_request_body";
     
     @Reference
     Storage storage;
@@ -75,36 +80,54 @@ public class StorageServlet extends HttpServlet {
         
         // If so configiured, store some internal metadata
         if(addMetadata) {
-            props.put("_stored.by", getClass().getName());
-            props.put("_stored.at", new Date());
-            props.put("_storage.path", path);
+            props.put("StoredBy", getClass().getName());
+            props.put("StoredAt", new Date());
+            props.put("Path", path);
         }
         
         // Store request body
         final InputStream is = req.getInputStream();
         if(is != null) {
-            props.put("body", toString(is));
+            props.put(BODY, toString(is));
         }
             
         // Store and dump result
         storage.put(path, props);
+        response.setHeader("Location", req.getContextPath() + path);
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().println("Stored at " + path);
         propertiesAsText(response.getWriter(), props);
+        response.setStatus(HttpServletResponse.SC_CREATED);
     }
     
     private String getStoragePath(HttpServletRequest req) {
-        return req.getPathInfo();
+        String path = req.getPathInfo();
+        if(path.endsWith("/")) {
+            path += pathCounter.incrementAndGet() + "_" + System.currentTimeMillis();
+        }
+        return path;
     }
     
+    /** Output our properties as text, with request body last, separated
+     *  by a blank line. Similar to RFC822 mail format. 
+     */
     private void propertiesAsText(PrintWriter pw, Properties props) {
         final Enumeration<?> e = props.propertyNames();
         while(e.hasMoreElements()) {
             final String key = e.nextElement().toString();
+            if(key.equals(BODY)) {
+                continue;
+            }
             pw.print(key);
-            pw.print('=');
+            pw.print(':');
             pw.println(props.get(key));
+        }
+        
+        final Object body = props.get(BODY);
+        if(body != null) {
+            pw.println();
+            pw.print(body);
         }
     }
     
