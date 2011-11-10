@@ -11,3 +11,7 @@ it by running
 From the "launcher" subfolder.
 
 I'll explain later how to demo this mini server application.
+
+## ApacheCon NA 2011 slides
+
+<div style="width:425px" id="__ss_10111302"> <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/bdelacretaz/osgi-for-mere-mortals" title="OSGi for mere mortals" target="_blank">OSGi for mere mortals</a></strong> <iframe src="http://www.slideshare.net/slideshow/embed_code/10111302" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe> <div style="padding:5px 0 12px"> View more <a href="http://www.slideshare.net/" target="_blank">presentations</a> from <a href="http://www.slideshare.net/bdelacretaz" target="_blank">bdelacretaz</a> </div> </div>
