@@ -13,3 +13,5 @@ code tree (using <a href="http://maven.apache.org">Apache Maven</a>
 
 The slides at http://www.slideshare.net/bdelacretaz/osgi-for-mere-mortals 
 should help you walk through the code.
+
+The OSGi console shown in the slides is at http://localhost:8080/system/console
