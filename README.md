@@ -2,7 +2,7 @@
 
 This is the code of my "OSGi for mere mortals" presentation at
 ApacheCon NA 2011, http://na11.apachecon.com/talks/19416 - a small
-exampl RESTful server application built from scratch using OSGi 
+standalone RESTful server built from scratch using OSGi 
 Declarative Services.
 
 The slides at http://www.slideshare.net/bdelacretaz/osgi-for-mere-mortals 
