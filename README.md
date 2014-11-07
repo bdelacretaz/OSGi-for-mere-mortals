@@ -1,10 +1,9 @@
 # OSGi for mere mortals
 
-This is the code of my "OSGi for mere mortals" presentation at
-ApacheCon NA 2011, http://na11.apachecon.com/talks/19416 and
-ApacheCon EU 2012, http://www.apachecon.eu/schedule/presentation/98/ - a small
-standalone RESTful server built from scratch using OSGi 
-Declarative Services.
+This is the code of my "OSGi for mere mortals" presentation at [ApacheCon](http://apachecon.com) NA 2011, EU 2012 and EU 2014.
+
+It's a small standalone RESTful server built from scratch using OSGi Declarative Services, meant
+to demonstrate that OSGi is not only for superhuman guru programmers.
 
 The slides at http://www.slideshare.net/bdelacretaz/osgi-for-mere-mortals 
 should help you walk through the code.
