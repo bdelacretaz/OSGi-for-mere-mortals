@@ -2,8 +2,8 @@
 
 This is the code of my "OSGi for mere mortals" presentation at [ApacheCon](http://apachecon.com) NA 2011, EU 2012 and EU 2014.
 
-It's a small standalone RESTful server built from scratch using OSGi Declarative Services, meant
-to demonstrate that OSGi is not only for superhuman guru programmers.
+It's a minimal standalone RESTful server built from scratch using OSGi Declarative Services, meant
+to demonstrate that OSGi is not only for superhuman guru programmers. 
 
 The slides at http://www.slideshare.net/bdelacretaz/osgi-for-mere-mortals 
 should help you walk through the code.
@@ -11,6 +11,8 @@ should help you walk through the code.
 The example demonstrates the complete lifecycle of an OSGi application,
 from starting the framework and installing the required bundles to running
 the app itself.
+
+It also demonstrates the svelteness of OSGi framework and core services: the total size of the build-time dependencies (jar files) is around 3 megabytes and additional runtime baggage amounts to ten OSGi bundles (also jar files) representing about 2 megabytes more, including all runtime features like the OSGi web console, interactive OSGi shell, the OSGi configuration mechanism and front-end and the servlet engine. Startup time is around 300 msec on my laptop.
 
 The Maven build is also a useful example of how to create OSGi bundles in a 
 simple way.
