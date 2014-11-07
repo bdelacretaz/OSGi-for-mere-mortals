@@ -33,10 +33,7 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>${basedir}</directory>
-                            <includes>
-                                <include>felix-cache</include>
-                            </includes>
+                            <directory>${basedir}/felix-cache</directory>
                         </fileset>
                     </filesets>
                 </configuration>
