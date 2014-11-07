@@ -30,11 +30,20 @@ import ch.x42.osgi.samples.osgi101.core.Storage;
  *  by default, path can be changed by configuration.
  */
 @SuppressWarnings("serial")
-@Component(metatype=true)
+@Component(
+    metatype=true,
+    label="OSGi 101 Storage Servlet",
+    description="Servlet that handles POST and GET requests for the Storage service")
 @Service(value=Servlet.class)
 @org.apache.felix.scr.annotations.Properties({
-    @Property(name=CoreConstants.SERVLET_METHOD_PROP, value={"POST", "GET"}, propertyPrivate=true),
-    @Property(name=CoreConstants.SERVLET_PATH_PROP, value="/store")
+    @Property(
+        name=CoreConstants.SERVLET_METHOD_PROP, 
+        value={"POST", "GET"}, propertyPrivate=true),
+    @Property(
+        name=CoreConstants.SERVLET_PATH_PROP,
+        label="Servlet Path",
+        description="Path on which the servlet is mounted",
+        value="/store")
 })
 public class StorageServlet extends HttpServlet {
 
@@ -47,7 +56,10 @@ public class StorageServlet extends HttpServlet {
     @Reference
     Storage storage;
     
-    @Property(boolValue=true)
+    @Property(
+        boolValue=true,
+        label="Add metadata?",
+        description="If true, some metadata is added before storing")
     public static final String ADD_METADATA_PROP = "add.metadata";
     private boolean addMetadata;
     
