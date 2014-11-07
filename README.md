@@ -14,7 +14,7 @@ The example demonstrates the complete lifecycle of an OSGi application,
 from starting the framework and installing the required bundles to running
 the app itself.
 
-It also demonstrates the svelteness of OSGi framework and core services: the total size of the build-time dependencies (jar files) is around 3 megabytes and additional runtime baggage amounts to ten OSGi bundles (also jar files) representing about 2 megabytes more, including all runtime features like the OSGi web console, interactive OSGi shell, the OSGi configuration mechanism and front-end and the servlet engine. Startup time is around 300 msec on my laptop.
+It also demonstrates the svelteness of the OSGi framework and core services: the total size of the build-time dependencies (jar files) is around 3 megabytes and additional runtime baggage amounts to ten OSGi bundles (also jar files) representing about 2 megabytes more, including all runtime features like the OSGi web console, interactive OSGi shell, the OSGi configuration mechanism and front-end and the servlet engine. Startup time is around 300 msec on my laptop.
 
 The Maven build is also a useful example of how to create OSGi bundles in a 
 simple way.
