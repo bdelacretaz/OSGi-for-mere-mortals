@@ -2,6 +2,8 @@
 
 This is the code of my "OSGi for mere mortals" presentation at [ApacheCon](http://apachecon.com) NA 2011, EU 2012 and EU 2014.
 
+<div style="float:right"><a href="http://events.linuxfoundation.org/events/apachecon-europe/program/schedule"><img src="http://bit.ly/1ttg6CE"/></a></div>
+
 It's a minimal standalone RESTful server built from scratch using OSGi Declarative Services, meant
 to demonstrate that OSGi is not only for superhuman guru programmers. 
 
