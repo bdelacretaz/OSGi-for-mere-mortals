@@ -17,10 +17,14 @@ import org.slf4j.LoggerFactory;
 /** Bootstrap the OSGi framework, based on Neil Bartlett's 
  *  http://njbartlett.name/2011/03/07/embedding-osgi.html
  *  tutorial.
+ *  Installs and starts all bundles found in a folder specified by 
+ *  the "additional.bundles.path" system property.
  */
 class OsgiBootstrap {
     private static final Logger log = LoggerFactory.getLogger(OsgiBootstrap.class);
     private final Framework framework;
+    
+    private static final String ADD_BUNDLES_FOLDER = System.getProperty("additional.bundles.path","target/bundles");
     
     OsgiBootstrap() throws BundleException {
         FrameworkFactory frameworkFactory = java.util.ServiceLoader.load(FrameworkFactory.class).iterator().next();
@@ -75,7 +79,8 @@ class OsgiBootstrap {
         final Framework framework = osgi.getFramework();
         
         log.info("Framework bundle: {} ({})", framework.getSymbolicName(), framework.getState());
-        osgi.installBundles(new File("target/bundles"));
+        log.info("Looking for additional bundles under {}", ADD_BUNDLES_FOLDER);
+        osgi.installBundles(new File(ADD_BUNDLES_FOLDER));
         for(Bundle b : framework.getBundleContext().getBundles()) {
             log.info("Installed bundle: {} ({})", b.getSymbolicName(), b.getState());
         }
