@@ -25,6 +25,13 @@ import org.slf4j.LoggerFactory;
 
 import ch.x42.osgi.samples.osgi101.core.CoreConstants;
 
+/** Dispatch HTTP requests to servlets which are registered as OSGi
+ *  services, with service properties that define which HTTP methods
+ *  and request paths a servlet wants to handle.
+ *  Many frameworks provide such dispatching services already, but building
+ *  our own for this example is a good example of how to manage dynamic
+ *  services.
+ */
 @SuppressWarnings("serial")
 @Component(immediate=true)
 public class DispatcherServlet extends HttpServlet {
