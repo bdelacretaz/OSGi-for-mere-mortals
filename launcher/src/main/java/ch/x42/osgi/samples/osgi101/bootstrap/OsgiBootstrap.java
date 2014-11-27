@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -23,12 +24,16 @@ import org.slf4j.LoggerFactory;
 class OsgiBootstrap {
     private static final Logger log = LoggerFactory.getLogger(OsgiBootstrap.class);
     private final Framework framework;
+    private static final AtomicLong idCounter = new AtomicLong(System.currentTimeMillis()); 
     
     private static final String ADD_BUNDLES_FOLDER = System.getProperty("additional.bundles.path","target/bundles");
     
-    OsgiBootstrap() throws BundleException {
+    public OsgiBootstrap() throws BundleException {
+        this(new HashMap<String, String>());
+    }
+    
+    OsgiBootstrap(Map<String, String> config) throws BundleException {
         FrameworkFactory frameworkFactory = java.util.ServiceLoader.load(FrameworkFactory.class).iterator().next();
-        final Map<String, String> config = new HashMap<String, String>();
         framework = frameworkFactory.newFramework(config);
         framework.start();
         log.info("OSGi framework started");
@@ -75,16 +80,36 @@ class OsgiBootstrap {
     }
     
     public static void main(String [] args) throws Exception {
-        final OsgiBootstrap osgi = new OsgiBootstrap();
-        final Framework framework = osgi.getFramework();
         
-        log.info("Framework bundle: {} ({})", framework.getSymbolicName(), framework.getState());
-        log.info("Looking for additional bundles under {}", ADD_BUNDLES_FOLDER);
-        osgi.installBundles(new File(ADD_BUNDLES_FOLDER));
-        for(Bundle b : framework.getBundleContext().getBundles()) {
-            log.info("Installed bundle: {} ({})", b.getSymbolicName(), b.getState());
+        int nInstances = 1;
+        if(args.length > 0) {
+            nInstances = Integer.valueOf(args[0]);
+        }
+        final int firstPort = 8080;
+        final OsgiBootstrap [] ob = new OsgiBootstrap[nInstances]; 
+        
+        log.info("Starting {} instances of the OSGi framework", nInstances);
+        
+        for(int i=0; i < nInstances; i++) {
+            final int port = firstPort + i;
+            final Map<String, String> config = new HashMap<String, String>();
+            config.put("org.osgi.framework.storage", "felix-cache/instance-" + idCounter.incrementAndGet());
+            config.put("org.osgi.service.http.port", String.valueOf(port));
+            ob[i] = new OsgiBootstrap(config);
+            final Framework framework = ob[i].getFramework();
+            
+            log.info("Framework started on port {}, bundle: {} ({})", 
+                    new Object[]{ port, framework.getSymbolicName(), framework.getState()});
+            log.info("Looking for additional bundles under {}", ADD_BUNDLES_FOLDER);
+            ob[i].installBundles(new File(ADD_BUNDLES_FOLDER));
+            for(Bundle b : framework.getBundleContext().getBundles()) {
+                log.info("Installed bundle: {} ({})", b.getSymbolicName(), b.getState());
+            }
         }
         
-        osgi.waitForFrameworkAndQuit();
+        for(OsgiBootstrap b : ob) {
+            log.info("Waiting for {}", b.getFramework());
+            b.waitForFrameworkAndQuit();
+        }
     }
 }
